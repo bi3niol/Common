@@ -1,13 +1,13 @@
 ﻿using Common.Model;
+using Common.Repository;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Repository
+namespace Common.EntityFramework
 {
     public abstract class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : Entity<TKey>
     {
