@@ -59,7 +59,7 @@ namespace Common.MongoDB
 
         public IEnumerable<TEntity> GetEntitiesByFilter(Func<TEntity, bool> predicate)
         {
-            return DataCollection.Find(e => predicate(e)).ToList();
+            return DataCollection.Find(e=>true).ToList().Where(predicate);
         }
 
         public TEntity GetEntity(ObjectId id)
