@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Common.MongoDB
 {
-    public class Repository<TEntity> : IRepository<TEntity, ObjectId> where TEntity : Entity<ObjectId>
+    public class Repository<TEntity> : IRepository<TEntity, ObjectId> where TEntity : IEntity<ObjectId>
     {
         protected IMongoDatabase Database { get; set; }
         protected IMongoCollection<TEntity> DataCollection { get; set; }

@@ -13,7 +13,7 @@ namespace Common.Repository
     /// </summary>
     /// <typeparam name="TEntity">Type of entity</typeparam>
     /// <typeparam name="TKey">type of entity id</typeparam>
-    public interface IRepository<TEntity,TKey> where TEntity : Entity<TKey>
+    public interface IRepository<TEntity,TKey> where TEntity : IEntity<TKey>
     {
         /// <summary>
         /// Add entity to database

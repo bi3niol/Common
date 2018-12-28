@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Common.EntityFramework
 {
-    public abstract class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : Entity<TKey>
+    public abstract class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity :class, IEntity<TKey>
     {
         protected DbContext context;
         protected DbSet<TEntity> dbSet;

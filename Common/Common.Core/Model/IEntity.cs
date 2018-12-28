@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.Model
 {
-    public class Entity<TKey> : IEntity<TKey>
+    public interface IEntity<Tkey>
     {
-        public TKey Id { get; set; }
+        [Key]
+        Tkey Id { get; set; }
     }
 }
