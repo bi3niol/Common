@@ -77,6 +77,10 @@
       <Project>{896792CE-F566-4D37-9972-CF55F61ACF7C}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Common.SMS\Common.SMS.csproj">
+      <Project>{a76545b7-40f2-4629-823b-6d4341a3c046}</Project>
+      <Name>Common.SMS</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

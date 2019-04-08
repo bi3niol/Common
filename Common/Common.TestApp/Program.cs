@@ -26,6 +26,10 @@ namespace Common.TestApp
     {
         static void Main(string[] args)
         {
+            SMS.Client sms = new Client(args[0]);
+            sms.SendMessage(new PhoneNumber(args[1]), new Message(args[2], BitesPerCharacter.Eight));
+
+            return;
             Console.WriteLine(TypeHelper.GetCollectionNameFromType<TestClass>());
             var client = new MongoClient();
             var db = client.GetDatabase("testDataBase");

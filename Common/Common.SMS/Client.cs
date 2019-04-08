@@ -23,7 +23,7 @@ namespace Common.SMS
             SetParameters();
         }
 
-        bool SendMessage(PhoneNumber phone, Message message)
+        public bool SendMessage(PhoneNumber phone, Message message)
         {
             SetParameters(bitesPerCharacter: message.DataBits);
             if (!serialPort.IsOpen)
@@ -50,14 +50,14 @@ namespace Common.SMS
             serialPort.NewLine = Environment.NewLine;
         }
 
-        private string ExecuteCommand(string command, string errorMEssage = "Error", bool newLine = true, int sleep = 100)
+        private string ExecuteCommand(string command, string errorMEssage = null, bool newLine = true, int sleep = 100)
         {
             serialPort.Write(command + (newLine ? serialPort.NewLine : ""));
             System.Threading.Thread.Sleep(sleep);
             var res = serialPort.ReadExisting();
             if (res != null && res.Contains("Error"))
             {
-                throw new Exception(errorMEssage);
+                throw new Exception(errorMEssage??res);
             }
             return res;
         }
