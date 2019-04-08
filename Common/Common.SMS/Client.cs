@@ -29,9 +29,9 @@ namespace Common.SMS
             if (!serialPort.IsOpen)
                 serialPort.Open();
             ExecuteCommand(AT);
-            ExecuteCommand(string.Format(AT_CMGF, 1));
-            ExecuteCommand(string.Format(AT_CSCS, "\"GSM\""));
-            ExecuteCommand(string.Format(AT_CMGS, phone));
+            ExecuteCommand(AT_CMGF(1));
+            ExecuteCommand(AT_CSCS("\"GSM\""));
+            ExecuteCommand(AT_CMGS(phone));
             ExecuteCommand(message.ToString(), newLine: false);
             ExecuteCommand(CTRL_Z);
             return true;
