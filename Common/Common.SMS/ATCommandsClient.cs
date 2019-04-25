@@ -5,17 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.Ports;
 using static Common.SMS.ATCommands;
+using System.Diagnostics;
+using Common.SMS.Exceptions;
+
 namespace Common.SMS
 {
-    public class Client : IDisposable
+    public class ATCommandsClient : IDisposable
     {
         private SerialPort serialPort;
-        public Client(SerialPort port)
+        public ATCommandsClient(SerialPort port)
         {
             serialPort = port;
         }
 
-        public Client(string comPortName)
+        public ATCommandsClient(string comPortName)
         {
             if (!SerialPort.GetPortNames().Contains(comPortName))
                 throw new ArgumentException($"No COM port with name {comPortName}");
@@ -25,15 +28,32 @@ namespace Common.SMS
 
         public bool SendMessage(PhoneNumber phone, Message message)
         {
+            if (message.DataBits == BitesPerCharacter.Sixteen)
+                throw new NotSupportedException("Unicode message character not supported");
             SetParameters(bitesPerCharacter: message.DataBits);
             if (!serialPort.IsOpen)
                 serialPort.Open();
+            int refNumber = Math.Abs(message.GetHashCode()) % 256;
+            int iei = (int)message.DataBits - 8;
             ExecuteCommand(AT);
             ExecuteCommand(AT_CMGF(1));
             ExecuteCommand(AT_CSCS("\"GSM\""));
-            ExecuteCommand(AT_CMGS(phone));
-            ExecuteCommand(message.ToString(), newLine: false);
-            ExecuteCommand(CTRL_Z);
+            if (message.NumberOfSubmessages > 1)
+            {
+                ExecuteCommand(DCD(1));
+                for (int seq = 1; seq <= message.NumberOfSubmessages; seq++)
+                {
+                    ExecuteCommand(AT_UCMGS(phone, seq, message.NumberOfSubmessages, iei, refNumber));
+                    ExecuteCommand(AT_MSG(message.GetPartOfMessage(seq)));
+                }
+                ExecuteCommand(DCD(0));
+            }
+            else
+            {
+                ExecuteCommand(DCD(0));
+                ExecuteCommand(AT_CMGS(phone));
+                ExecuteCommand(AT_MSG(message.ToString()));
+            }
             return true;
         }
 
@@ -41,7 +61,7 @@ namespace Common.SMS
             StopBits stopBits = StopBits.One, Handshake handshake = Handshake.RequestToSend, bool dtrEnable = true, bool rtsEnable = true)
         {
             serialPort.Parity = parity;
-            serialPort.DataBits = (int)bitesPerCharacter;
+            serialPort.DataBits = 8;
             serialPort.StopBits = stopBits;
             serialPort.Handshake = handshake;
             serialPort.DtrEnable = dtrEnable;
@@ -55,9 +75,11 @@ namespace Common.SMS
             serialPort.Write(command + (newLine ? serialPort.NewLine : ""));
             System.Threading.Thread.Sleep(sleep);
             var res = serialPort.ReadExisting();
-            if (res != null && res.Contains("Error"))
+            Trace.TraceInformation("AT Command : "+command);
+            Trace.TraceInformation("AT Response : "+res);
+            if (res != null && res.ToLower().Contains("error"))
             {
-                throw new Exception(errorMEssage??res);
+                throw new ATCommandException(command, res, errorMEssage);
             }
             return res;
         }

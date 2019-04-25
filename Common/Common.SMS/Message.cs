@@ -24,6 +24,15 @@ namespace Common.SMS
 
         public int NumberOfSubmessages { get; }
 
+        /// <summary>
+        /// start from ID = 1
+        /// </summary>
+        /// <param name="partId"></param>
+        /// <returns></returns>
+        public string GetPartOfMessage(int partId)
+        {
+            return Content.Skip((partId - 1) * Values.BytesPerSubmessage).Take(Values.BytesPerSubmessage).GetStringSmsContent(DataBits);
+        }
         public int Length
         {
             get => Content.Length;
@@ -32,7 +41,6 @@ namespace Common.SMS
         public byte[] Content
         {
             get;
-            set;
         }
 
         public override string ToString()
@@ -48,6 +56,11 @@ namespace Common.SMS
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
         }
     }
 }

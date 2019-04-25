@@ -42,7 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATCommands.cs" />
-    <Compile Include="Client.cs" />
+    <Compile Include="ATCommandsClient.cs" />
+    <Compile Include="Exceptions\ATCommandException.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="PhoneNumber.cs" />
