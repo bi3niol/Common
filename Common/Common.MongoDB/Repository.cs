@@ -14,8 +14,8 @@ namespace Common.MongoDB
 {
     public class Repository<TEntity> : IRepository<TEntity, ObjectId> where TEntity : IEntity<ObjectId>
     {
-        protected IMongoDatabase Database { get; set; }
-        protected IMongoCollection<TEntity> DataCollection { get; set; }
+        public IMongoDatabase Database { get; private set; }
+        public IMongoCollection<TEntity> DataCollection { get; private set; }
 
         public Repository(IMongoDatabase database, bool createIfNotExists = false)
         {
@@ -27,11 +27,11 @@ namespace Common.MongoDB
             if (!CollectionExists(database, collName))
             {
                 if (!createIfNotExists)
-                    throw new ArgumentException($"Collection {collName} does not exists \n set 'createIfNotExists' to true if you wont create it automatically");
+                    throw new ArgumentException($"Collection {collName} does not exists \n set 'createIfNotExists' to true if you want create it automatically");
                 else
                     Database.CreateCollection(collName);
             }
-            DataCollection = Database.GetCollection<TEntity>(TypeHelper.GetCollectionNameFromType<TEntity>());
+            DataCollection = Database.GetCollection<TEntity>(collName);
         }
 
         protected bool CollectionExists(IMongoDatabase database, string collectionName)
