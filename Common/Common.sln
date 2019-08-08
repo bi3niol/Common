@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common.Core\Common.csproj", "{896792CE-F566-4D37-9972-CF55F61ACF7C}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.EntityFramework", "Common.EntityFramework\Common.EntityFramework.csproj", "{065562B6-D93A-4744-A4D8-90FF07FCCDA6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.SMS", "Common.SMS\Common.SMS.csproj", "{A76545B7-40F2-4629-823B-6D4341A3C046}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.RabbitMQ", "Common.RabbitMQ\Common.RabbitMQ.csproj", "{4FDF9E69-659E-4027-9B3F-3D0868249440}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A76545B7-40F2-4629-823B-6D4341A3C046}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A76545B7-40F2-4629-823B-6D4341A3C046}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A76545B7-40F2-4629-823B-6D4341A3C046}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FDF9E69-659E-4027-9B3F-3D0868249440}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FDF9E69-659E-4027-9B3F-3D0868249440}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FDF9E69-659E-4027-9B3F-3D0868249440}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FDF9E69-659E-4027-9B3F-3D0868249440}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
