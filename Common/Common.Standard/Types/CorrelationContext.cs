@@ -9,5 +9,8 @@ namespace Common.Standard.Types
         public static ICorrelationContext Empty => new CorrelationContext();
 
         public Guid Id { get; }
+
+        public Guid? UserId { get; }
+        public int Retries { get; set; }
     }
 }

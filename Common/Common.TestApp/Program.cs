@@ -18,13 +18,28 @@ namespace Common.TestApp
 {
     [CollectionName("TestCollection")]
     [BsonIgnoreExtraElements]
-    class TestClass:Entity<ObjectId>
+    class TestClass : Entity<ObjectId>
     {
         public int? Age { get; set; }
         public string Name { get; set; }
         public override string ToString()
         {
             return $"{Id} - {Age} - {Name}";
+        }
+        public override bool Equals(object obj)
+        {
+            Console.WriteLine("Equals class call");
+
+            return base.Equals(obj);
+        }
+     
+        public static bool operator !=(TestClass t1, TestClass t2)
+        {
+            return !(t2==t1);
+        }
+        public static bool operator ==(TestClass t1, TestClass t2)
+        {
+            return t1.Equals(t2);
         }
     }
 
@@ -64,12 +79,23 @@ panowie testujemy
         }
         static void Main(string[] args)
         {
-            MongoDB();
+            //MongoDB();
+            EqualsTest();
             return;
             SMS.ATCommandsClient sms = new ATCommandsClient("COM6");
             sms.SendMessage(new PhoneNumber(args[1]), new Message(args[2], BitesPerCharacter.Eight));
         }
+        static void EqualsTest()
+        {
+            TestClass t1 = new TestClass() { Age = 20, Name = "franek" };
+            TestClass t2 = new TestClass() { Age = 21, Name = "Benek" };
+            HashSet<TestClass> test = new HashSet<TestClass>();
+            Dictionary<TestClass, int> test2 = new Dictionary<TestClass, int>();
 
+            test2.Add(t1,2);
+            test2.Add(t2,2);
+            Console.WriteLine(t1 == t2);
+        }
         static void MongoDB()
         {
             Console.WriteLine(TypeHelper.GetCollectionNameFromType<ChildTestClass>());

@@ -7,5 +7,7 @@ namespace Common.Standard.Types
     public interface ICorrelationContext
     {
         Guid Id { get; }
+        Guid? UserId { get; }
+        int Retries { get; set; }
     }
 }
