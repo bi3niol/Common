@@ -34,8 +34,9 @@ namespace Common.Standard.RabbitMQ
         }
 
         public static IBusSubscriber UseRabbitMq(this IApplicationBuilder app)
-            => new BusSubscriber(app);
-
+            => new BusSubscriber(app.ApplicationServices);
+        public static IBusSubscriber UseRabbitMq(this IServiceProvider serviceProvider)
+            => new BusSubscriber(serviceProvider);
         public static void AddRabbitMq(this ContainerBuilder builder)
         {
             builder.Register(context =>

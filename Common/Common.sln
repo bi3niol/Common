@@ -15,7 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.SMS", "Common.SMS\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.RabbitMQ", "Common.RabbitMQ\Common.RabbitMQ.csproj", "{4FDF9E69-659E-4027-9B3F-3D0868249440}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Standard", "Common.Standard\Common.Standard.csproj", "{25B91C1B-5478-4041-BDC7-BDAC366DE49F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Standard", "Common.Standard\Common.Standard.csproj", "{25B91C1B-5478-4041-BDC7-BDAC366DE49F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.TestCoreApp", "Common.TestCoreApp\Common.TestCoreApp.csproj", "{A47380ED-5C59-40E4-A72A-863601008E6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{25B91C1B-5478-4041-BDC7-BDAC366DE49F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25B91C1B-5478-4041-BDC7-BDAC366DE49F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25B91C1B-5478-4041-BDC7-BDAC366DE49F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A47380ED-5C59-40E4-A72A-863601008E6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A47380ED-5C59-40E4-A72A-863601008E6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A47380ED-5C59-40E4-A72A-863601008E6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A47380ED-5C59-40E4-A72A-863601008E6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

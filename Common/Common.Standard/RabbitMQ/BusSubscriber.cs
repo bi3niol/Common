@@ -28,10 +28,10 @@ namespace Common.Standard.RabbitMQ
         private int _retries;
         private double _retryInterval;
 
-        public BusSubscriber(IApplicationBuilder app)
+        public BusSubscriber(IServiceProvider ApplicationServices)
         {
-            _logger = app.ApplicationServices.GetService<ILogger<BusSubscriber>>();
-            _serviceProvider = app.ApplicationServices.GetService<IServiceProvider>();
+            _logger = ApplicationServices.GetService<ILogger<BusSubscriber>>();
+            _serviceProvider = ApplicationServices.GetService<IServiceProvider>();
             _busClient = _serviceProvider.GetService<IBusClient>();
             _tracer = _serviceProvider.GetService<ITracer>();
             var options = _serviceProvider.GetService<RabbitMqOptions>();
