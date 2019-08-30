@@ -25,12 +25,12 @@ namespace Common.Standard.RabbitMQ
     {
         public static string GetRoutingKey(this Type messageType, string defaultNamespace = null)
         {
-            throw new NotImplementedException();
+            return messageType.Name;
         }
 
         public static string GetQueueName(this Type messageType, string @namespace = null, string queueName = null)
         {
-            throw new NotImplementedException();
+            return queueName;
         }
 
         public static IBusSubscriber UseRabbitMq(this IApplicationBuilder app)

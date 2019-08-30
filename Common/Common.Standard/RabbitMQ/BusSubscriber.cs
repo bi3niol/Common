@@ -92,7 +92,7 @@ namespace Common.Standard.RabbitMQ
                             : $"Retry: {currentRetry}'.";
 
                         var preLogMessage = $"Handling a message: '{messageName}' " +
-                                      $"with correlation id: '{correlationContext.Id}'. {retryMessage}";
+                                      $"with correlation id: '{correlationContext?.Id}'. {retryMessage}";
 
                         _logger.LogInformation(preLogMessage);
                         span.Log(preLogMessage);
@@ -100,7 +100,7 @@ namespace Common.Standard.RabbitMQ
                         await handle();
 
                         var postLogMessage = $"Handled a message: '{messageName}' " +
-                                             $"with correlation id: '{correlationContext.Id}'. {retryMessage}";
+                                             $"with correlation id: '{correlationContext?.Id}'. {retryMessage}";
                         _logger.LogInformation(postLogMessage);
                         span.Log(postLogMessage);
 
@@ -118,7 +118,7 @@ namespace Common.Standard.RabbitMQ
                             var rejectedEvent = onError(message, commonException);
                             await _busClient.PublishAsync(rejectedEvent, ctx => ctx.UseMessageContext(correlationContext));
                             _logger.LogInformation($"Published a rejected event: '{rejectedEvent.GetType().Name}' " +
-                                                   $"for the message: '{messageName}' with correlation id: '{correlationContext.Id}'.");
+                                                   $"for the message: '{messageName}' with correlation id: '{correlationContext?.Id}'.");
 
                             span.SetTag("error-type", "domain");
                             return new Ack();
