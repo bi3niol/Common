@@ -45,7 +45,7 @@ namespace Common.TestCoreApp
                 cb.AddHandlers();
             }));
             var host = builder.Build();
-            host.Services.UseRabbitMq().SubscribeEvent<TestEvent>(queueName: "test_queue");
+            //host.Services.UseRabbitMq().SubscribeEvent<TestEvent>(queueName: "test_queue");
             var pub = host.Services.GetService<IBusPublisher>();
             await pub.PublishAsync(new TestEvent { TestValue = 997 }, CorrelationContext.Empty);
 

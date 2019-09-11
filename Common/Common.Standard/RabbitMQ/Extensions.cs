@@ -25,12 +25,19 @@ namespace Common.Standard.RabbitMQ
     {
         public static string GetRoutingKey(this Type messageType, string defaultNamespace = null)
         {
-            return messageType.Name;
+            var res = messageType.GetCustomAttribute<RoutingKeyAttribute>()?.RoutingKey ?? ((string.IsNullOrWhiteSpace(defaultNamespace) ? "" : defaultNamespace + ".") + messageType.Name);
+
+            return res;
         }
 
         public static string GetQueueName(this Type messageType, string @namespace = null, string queueName = null)
         {
-            return queueName;
+            if (!string.IsNullOrWhiteSpace(queueName))
+                return queueName;
+
+            var res = messageType.GetCustomAttribute<QueueNameAttribute>()?.QueueName ?? ((string.IsNullOrWhiteSpace(@namespace) ? "" : @namespace + ".") + messageType.Name);
+
+            return res;
         }
 
         public static IBusSubscriber UseRabbitMq(this IApplicationBuilder app)
